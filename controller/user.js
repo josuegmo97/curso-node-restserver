@@ -1,7 +1,6 @@
 const { response } = require('express')
 const bcrypt = require('bcryptjs')
 const User = require('../models/user.js')
-const Role = require('../models/role.js')
 
 const usersGet = async (req, res = response) => {
 
@@ -67,6 +66,8 @@ const usersPost = async (req, res = response) => {
 const usersDelete = async (req, res = response) => {
 
     const { id } = req.params
+
+    console.log(req.user)
 
     // Fisicamente borrado
     // const user = await User.findByIdAndDelete(id)
