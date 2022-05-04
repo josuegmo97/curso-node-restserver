@@ -6,8 +6,15 @@ class Server {
     constructor() {
         this.app = express()
         this.port = process.env.PORT
-        this.userPath = '/api/user'
-        this.authPath = '/api/auth'
+
+        // Rutas
+        this.paths = {
+            userPath: '/api/user',
+            authPath: '/api/auth',
+            categoryPath: '/api/category',
+            productPath: '/api/product',
+            searchPath: '/api/search',
+        }
 
         // Conectar a base de datos
         this.conectarDB()
@@ -19,11 +26,11 @@ class Server {
         this.routes()
     }
 
-    async conectarDB(){
-       await dbConnection()
+    async conectarDB() {
+        await dbConnection()
     }
 
-    middlewares(){
+    middlewares() {
 
         // CORS
         this.app.use(cors())
@@ -33,16 +40,19 @@ class Server {
         // this.app.use(express.urlencoded())
 
         // Directorio publico
-        this.app.use( express.static('public'));
+        this.app.use(express.static('public'));
 
     }
 
-    routes(){
-        this.app.use(this.userPath, require('../routes/user'))
-        this.app.use(this.authPath, require('../routes/auth'))
+    routes() {
+        this.app.use(this.paths.userPath, require('../routes/user'))
+        this.app.use(this.paths.authPath, require('../routes/auth'))
+        this.app.use(this.paths.categoryPath, require('../routes/category'))
+        this.app.use(this.paths.productPath, require('../routes/product'))
+        this.app.use(this.paths.searchPath, require('../routes/search'))
     }
 
-    listen(){
+    listen() {
         this.app.listen(this.port, () => console.log(`Example app listening on port ${this.port}`))
     }
 }
