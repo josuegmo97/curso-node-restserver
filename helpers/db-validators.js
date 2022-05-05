@@ -41,10 +41,21 @@ const existsProductById = async ( id ) => {
 
 }
 
+const colectionsAllows = ( argument = '', allows = []) => {
+
+   if(!allows.includes(argument)){
+       throw new Error('This colection is not allow');
+   }
+
+   return true;
+
+}
+
 module.exports = {
     isValidRol,
     existsEmail,
     existsUserById,
     existsCategoryById,
-    existsProductById
+    existsProductById,
+    colectionsAllows
 }
